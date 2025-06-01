@@ -1,115 +1,1097 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore the animal kingdom with our comprehensive encyclopedia. Learn about diverse species, endangered animals, and conservation efforts."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="./images/fox.webp" as="image" type="image/webp" />
+    <link
+      rel="preload"
+      href="./images/leopard.webp"
+      as="image"
+      type="image/webp"
+    />
+    <title>Animal Encyclopedia</title>
+    <style>
+      :root {
+        --primary-bg: #12263a;
+        --secondary-bg: #c5d8d1;
+        --primary-text: #c5d8d1;
+        --secondary-text: #12263a;
+        --accent-color: #2f6397;
+        --highlight-color: #06bcc1;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: var(--primary-bg);
+        color: var(--primary-text);
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Critical CSS for above-the-fold content */
+      .container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px max(15px, 3vw);
+        background-color: var(--secondary-bg);
+        color: var(--secondary-text);
+        min-height: 60px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: clamp(1.2rem, 4vw, 1.6rem);
+        font-weight: 700;
+        font-family: "Berkshire Swash", cursive;
+        color: var(--secondary-text);
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.5rem, 2vw, 1rem);
+      }
+
+      .nav-list {
+        display: flex;
+        gap: clamp(0.5rem, 3vw, 1.5rem);
+        list-style: none;
+      }
+
+      .nav-list a {
+        color: var(--secondary-text);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: clamp(0.8rem, 2vw, 0.95rem);
+        touch-action: manipulation;
+      }
+
+      .nav-list a:hover,
+      .nav-list a:focus-visible {
+        color: var(--accent-color);
+        background-color: rgba(47, 99, 151, 0.1);
+      }
+
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 8px;
+      }
+
+      .menu-toggle span {
+        width: 24px;
+        height: 2px;
+        background-color: var(--secondary-text);
+        margin: 3px 0;
+        border-radius: 2px;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      /* Hero Section */
+      .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: clamp(80px, 15vh, 100px) max(15px, 4vw) clamp(40px, 10vh, 60px);
+        gap: clamp(20px, 5vw, 30px);
+        min-height: 100vh;
+      }
+
+      .cont {
+        flex: 1;
+        max-width: min(600px, 100%);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.8rem, 2vw, 1.2rem);
+        text-align: center;
+      }
+
+      #heading {
+        font-size: clamp(1.8rem, 5.5vw, 3rem);
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      #p {
+        font-size: clamp(0.85rem, 2.2vw, 1rem);
+        line-height: 1.7;
+      }
+
+      #p2 {
+        font-size: clamp(1rem, 3vw, 1.4rem);
+        font-weight: 600;
+      }
+
+      #image {
+        flex: 1;
+        width: 100%;
+        max-width: min(500px, 100%);
+        height: clamp(200px, 35vw, 300px);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      #image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Section 2 - Cards */
+      .content2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: clamp(40px, 8vh, 60px) max(15px, 4vw);
+        background-color: var(--secondary-bg);
+        color: var(--secondary-text);
+      }
+
+      .cont2 {
+        max-width: min(800px, 100%);
+        text-align: center;
+        margin-bottom: clamp(20px, 5vw, 30px);
+      }
+
+      #heading2 {
+        font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+        margin-bottom: clamp(0.5rem, 2vw, 1rem);
+      }
+
+      #p3 {
+        font-size: clamp(0.85rem, 2.2vw, 1rem);
+        line-height: 1.7;
+      }
+
+      #line {
+        width: 100%;
+        height: 2px;
+        background-color: var(--secondary-text);
+        margin: clamp(10px, 3vw, 15px) 0;
+        border: none;
+      }
+
+      .card {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+        gap: clamp(1rem, 3vw, 1.5rem);
+        max-width: min(1200px, 100%);
+      }
+
+      .cards {
+        background-color: var(--primary-bg);
+        color: var(--primary-text);
+        padding: clamp(15px, 4vw, 20px);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .cards .heading {
+        font-size: clamp(1rem, 2.8vw, 1.2rem);
+        margin-bottom: clamp(0.5rem, 2vw, 0.8rem);
+        font-weight: 600;
+      }
+
+      .cards .p {
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        line-height: 1.6;
+        flex-grow: 1;
+      }
+
+      .image2 {
+        width: 100%;
+        height: clamp(150px, 25vw, 180px);
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      /* Section 3 - Hero Image */
+      .content3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: clamp(40px, 8vh, 60px) max(15px, 4vw);
+        background-color: var(--primary-bg);
+      }
+
+      .leo {
+        position: relative;
+        width: 100%;
+        max-width: min(900px, 100%);
+        height: clamp(200px, 45vw, 400px);
+        border-radius: 15px;
+        overflow: hidden;
+      }
+
+      .leo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .leo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1;
+      }
+
+      #header,
+      #header2 {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: clamp(1.2rem, 4.5vw, 2.5rem);
+        text-align: center;
+        width: 90%;
+        color: #fff;
+        font-weight: 700;
+        z-index: 2;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        line-height: 1.2;
+      }
+
+      #header {
+        top: 30%;
+      }
+
+      #header2 {
+        top: 50%;
+      }
+
+      /* Endangered Section */
+      .danger {
+        background-color: var(--secondary-bg);
+        padding: clamp(30px, 8vh, 50px) max(15px, 4vw) clamp(20px, 5vh, 30px);
+        text-align: center;
+      }
+
+      .dan {
+        color: var(--secondary-text);
+        font-size: clamp(1.3rem, 4.5vw, 2.2rem);
+        font-weight: 700;
+        max-width: min(800px, 100%);
+        margin: 0 auto;
+        line-height: 1.3;
+      }
+
+      .endanger {
+        background-color: var(--secondary-bg);
+        padding: clamp(20px, 5vh, 30px) max(15px, 4vw) clamp(30px, 8vh, 50px);
+        gap: clamp(20px, 5vw, 30px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .note {
+        flex: 1;
+        max-width: min(600px, 100%);
+        color: var(--secondary-text);
+      }
+
+      .notes {
+        font-size: clamp(0.85rem, 2.2vw, 1rem);
+        line-height: 1.7;
+        margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+      }
+
+      .notes span {
+        font-weight: 600;
+        color: var(--accent-color);
+      }
+
+      .image4 {
+        flex: 1;
+        width: 100%;
+        max-width: min(500px, 100%);
+        height: clamp(180px, 35vw, 250px);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .image4 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Articles Section */
+      .content4 {
+        background-color: var(--primary-bg);
+        padding: clamp(40px, 8vh, 60px) max(15px, 4vw);
+      }
+
+      .article {
+        max-width: min(1000px, 100%);
+        margin: 0 auto;
+      }
+
+      #arts {
+        font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+        text-align: center;
+        margin-bottom: clamp(20px, 5vw, 30px);
+        font-weight: 700;
+      }
+
+      #art {
+        background-color: var(--secondary-bg);
+        color: var(--secondary-text);
+        padding: clamp(20px, 5vw, 30px);
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      #art h3 {
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      #art p {
+        font-size: clamp(0.85rem, 2.2vw, 1rem);
+        line-height: 1.7;
+        margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+      }
+
+      .image5 {
+        width: 100%;
+        max-width: min(600px, 100%);
+        height: clamp(180px, 35vw, 250px);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: clamp(10px, 3vw, 15px) auto 0;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .image5 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Buttons */
+      .btn,
+      .btn2,
+      .btn3,
+      .btn4 {
+        padding: clamp(8px, 2vw, 10px) clamp(15px, 3.5vw, 25px);
+        border-radius: 20px;
+        border: 2px solid var(--primary-text);
+        cursor: pointer;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+        font-size: clamp(0.8rem, 2vw, 0.95rem);
+        background-color: var(--primary-bg);
+        color: var(--primary-text);
+        touch-action: manipulation;
+      }
+
+      .btn4 {
+        display: block;
+        margin: clamp(20px, 5vw, 30px) auto 0;
+        background-color: var(--secondary-bg);
+        color: var(--secondary-text);
+        border-color: var(--secondary-text);
+      }
+
+      .btn:hover,
+      .btn2:hover,
+      .btn3:hover,
+      .btn4:hover,
+      .btn:focus-visible,
+      .btn2:focus-visible,
+      .btn3:focus-visible,
+      .btn4:focus-visible {
+        background-color: var(--highlight-color);
+        color: var(--secondary-text);
+        border-color: var(--highlight-color);
+      }
+
+      /* Image Loading */
+      img {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      img[loading="lazy"].loaded {
+        opacity: 1;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        .container {
+          padding: 8px max(12px, 2vw);
+          min-height: 50px;
+        }
+
+        .navbar {
+          width: 100%;
+          justify-content: center;
+          margin-top: 8px;
+          order: 3;
+        }
+
+        .menu-toggle {
+          display: flex;
+          order: 2;
+        }
+
+        .logo {
+          order: 1;
+        }
+
+        .nav-list {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          gap: 0.5rem;
+          background-color: var(--secondary-bg);
+          padding: 12px;
+          border-radius: 8px;
+          margin-top: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-list.active {
+          display: flex;
+        }
+
+        .nav-list a {
+          padding: 10px;
+          text-align: center;
+        }
+
+        .content {
+          padding-top: 90px;
+          gap: 15px;
+        }
+
+        .endanger {
+          flex-direction: column;
+        }
+
+        .leo {
+          height: clamp(180px, 40vw, 250px);
+        }
+
+        #header,
+        #header2 {
+          font-size: clamp(1rem, 5vw, 1.8rem);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .cards {
+          padding: 15px;
+        }
+
+        #art {
+          padding: 15px;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .content {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .cont {
+          text-align: left;
+          margin-right: max(20px, 3vw);
+        }
+
+        .endanger {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+
+        .note {
+          margin-right: max(20px, 3vw);
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .container,
+        .content,
+        .content2,
+        .content3,
+        .content4,
+        .endanger,
+        .danger {
+          padding-left: max(30px, 4vw);
+          padding-right: max(30px, 4vw);
+        }
+      }
+
+      /* Accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      @media (prefers-contrast: high) {
+        .btn,
+        .btn2,
+        .btn3,
+        .btn4 {
+          border-width: 3px;
+        }
+
+        .nav-list a {
+          border: 2px solid transparent;
+        }
+
+        .nav-list a:hover,
+        .nav-list a:focus-visible {
+          border-color: var(--accent-color);
+        }
+      }
+    </style>
+  </head>
+  <body>
     <div class="section">
-        <div class="container">
-            <div class="logo">Animal</div>
-            <div class="navbar">
-                <ul class="nav-list">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Species</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-                <button class="btn">Sign Up</button>
-        </div>
+      <div class="container">
+        <div class="logo">Animal</div>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="navbar">
+          <ul class="nav-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#species">Species</a></li>
+            <li><a href="#endangered">Endangered</a></li>
+            <li><a href="#articles">Articles</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+          <button class="btn" aria-label="Sign up for newsletter">
+            Sign Up
+          </button>
+        </nav>
+      </div>
     </div>
 
-    <div class="content">
-            <div class="cont">
-                <h1 id="heading">Animal Encyclopedia</h1>
-                <p id="p">Discover the fierce, the fragile, and the fascinating. Dive into tales of tigers prowling jungles, bees dancing in meadows, and whales singing across oceans. But time is running out—habitats vanish, species fade. Here, exploration sparks change. Learn. Act. Protect.</p>
-                <p id="p2">Be curious. Be bold. Be their voice.</p>
-                <button class="btn2">Explore</button>
-            </div>
-        <div id="image"><img src="/images/fox.jpg" alt=""></div>
+    <div class="content" id="home">
+      <div class="cont">
+        <h1 id="heading">Animal Encyclopedia</h1>
+        <p id="p">
+          Discover the fierce, the fragile, and the fascinating. Dive into tales
+          of tigers prowling jungles, bees dancing in meadows, and whales
+          singing across oceans. But time is running out—habitats vanish,
+          species fade. Here, exploration sparks change. Learn. Act. Protect.
+        </p>
+        <p id="p2">Be curious. Be bold. Be their voice.</p>
+        <button class="btn2" aria-label="Explore animal encyclopedia">
+          Explore
+        </button>
+      </div>
+      <div id="image">
+        <picture>
+          <source
+            srcset="
+              ./images/fox-320w.webp 320w,
+              ./images/fox-640w.webp 640w,
+              ./images/fox-960w.webp 960w
+            "
+            sizes="(max-width: 600px) 100vw, 500px"
+            type="image/webp"
+          />
+          <img
+            src="./images/fox.jpg"
+            alt="Fox in natural habitat"
+            loading="lazy"
+            decoding="async"
+            class="loaded"
+          />
+        </picture>
+      </div>
     </div>
 
-        <div class="content2">
-            <div class="cont2">
-                <h1 id="heading2">The Animal Kingdom</h1>
-                <p id="p3">The animal kingdom is incredibly diverse, with an estimated 8.7 million species existing on Earth. Throughout history, humans have encountered and interacted with a vast array of animal species, ranging from domesticated pets and livestock to wild animals in their natural habitats.</p>
-                <hr id="line">
-            </div>
-            <div class="card">
-                <div class="cards">
-                    <div class="texts">
-                        <h3 class="heading">Mammals</h3>
-                        <p class="p">Mammals are a diverse group of warm-blooded animals that are characterized by a few key features. They have hair or fur covering their bodies, are capable of producing milk to nourish their young, and typically have a four-chambered heart. Most mammals give birth to live young, although a few lay eggs.</p>
-                        <img src="/images/sheep.jpg" alt="" class="image2">
-                    </div>
-                </div>
-                <div class="cards">
-                    <div class="texts">
-                        <h3 class="heading">Birds</h3>
-                        <p class="p">Birds are a diverse group of animals that belong to the class Aves. There are over 10,000 species of birds that are found all over the world, ranging from small songbirds to large birds of prey. Birds have adapted to a wide range of habitats, including forests, deserts, grasslands, wetlands, and oceans.</p>
-                        <img src="/images/parrot.jpg" alt="" class="image2">
-                    </div>
-                </div>
-                <div class="cards">
-                    <div class="texts">
-                        <h3 class="heading">Reptiles</h3>
-                        <p class="p">Reptiles are a class of cold-blooded, air-breathing vertebrates that include animals such as snakes, lizards, turtles, crocodiles, and alligators. They are characterized by their dry, scaly skin, which helps to prevent water loss, and their ability to lay eggs on land.</p>
-                        <img src="/images/chameleon.jpg" alt="" class="image2">
-                    </div>
-                </div>
-                <div class="cards">
-                    <div class="texts">
-                        <h3 class="heading">Amphibians</h3>
-                        <p class="p">Amphibians are a diverse group of cold-blooded vertebrates that spend part of their lives in water and part on land. They include around 7,000 species, which can be found in a variety of habitats around the world, from rainforests and deserts to freshwater and marine environments.</p>
-                        <img src="/images/frog.jpg" alt="" class="image2">
-                    </div>
-                </div>
-            </div>
-            <button class="btn3">Learn More</button>
+    <div class="content2" id="species">
+      <div class="cont2">
+        <h1 id="heading2">The Animal Kingdom</h1>
+        <p id="p3">
+          The animal kingdom is incredibly diverse, with an estimated 8.7
+          million species existing on Earth. Throughout history, humans have
+          encountered and interacted with a vast array of animal species,
+          ranging from domesticated pets and livestock to wild animals in their
+          natural habitats.
+        </p>
+        <hr id="line" />
+      </div>
+      <div class="card">
+        <div class="cards">
+          <div class="texts">
+            <h3 class="heading">Mammals</h3>
+            <p class="p">
+              Mammals are a diverse group of warm-blooded animals that are
+              characterized by a few key features. They have hair or fur
+              covering their bodies, are capable of producing milk to nourish
+              their young, and typically have a four-chambered heart. Most
+              mammals give birth to live young, although a few lay eggs.
+            </p>
+            <picture>
+              <source
+                srcset="
+                  ./images/sheep-320w.webp 320w,
+                  ./images/sheep-640w.webp 640w
+                "
+                sizes="100vw"
+                type="image/webp"
+              />
+              <img
+                src="./images/sheep.jpg"
+                alt="Sheep in meadow"
+                class="image2"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          </div>
         </div>
-
-        <div class="content3">
-            <div class="leo">
-                <img src="/images/leopard.jpg" alt="" class="image3">
-                <div class="inside">
-                    <h1 id="header">Protect Our Most</h1>
-                    <h1 id="header2">Endangered</h1>
-                </div>
-            </div>
+        <div class="cards">
+          <div class="texts">
+            <h3 class="heading">Birds</h3>
+            <p class="p">
+              Birds are a diverse group of animals that belong to the class
+              Aves. There are over 10,000 species of birds that are found all
+              over the world, ranging from small songbirds to large birds of
+              prey. Birds have adapted to a wide range of habitats, including
+              forests, deserts, grasslands, wetlands, and oceans.
+            </p>
+            <picture>
+              <source
+                srcset="
+                  ./images/parrot-320w.webp 320w,
+                  ./images/parrot-640w.webp 640w
+                "
+                sizes="100vw"
+                type="image/webp"
+              />
+              <img
+                src="./images/parrot.jpg"
+                alt="Colorful parrot"
+                class="image2"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          </div>
         </div>
-
-        <div class="danger">
-            <h1 class="dan">Endangered Species: Guardians on the Brink of Extinction</h1>
+        <div class="cards">
+          <div class="texts">
+            <h3 class="heading">Reptiles</h3>
+            <p class="p">
+              Reptiles are a class of cold-blooded, air-breathing vertebrates
+              that include animals such as snakes, lizards, turtles, crocodiles,
+              and alligators. They are characterized by their dry, scaly skin,
+              which helps to prevent water loss, and their ability to lay eggs
+              on land.
+            </p>
+            <picture>
+              <source
+                srcset="
+                  ./images/chameleon-320w.webp 320w,
+                  ./images/chameleon-640w.webp 640w
+                "
+                sizes="100vw"
+                type="image/webp"
+              />
+              <img
+                src="./images/chameleon.jpg"
+                alt="Chameleon on branch"
+                class="image2"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          </div>
         </div>
-        <div class="endanger">
-            <div class="note">
-                <p class="notes">The Earth is home to an astonishing variety of life forms—from towering elephants and elusive snow leopards to delicate orchids and tiny frogs. However, a growing number of these species are now at risk of disappearing forever. These are our endangered species, and their plight is a clear warning about the fragile balance of life on Earth.</p>
-                <p class="notes">A species is considered endangered when its population has declined so significantly that it is at high risk of extinction in the near future. This status is classified by organizations like the <span>International Union for Conservation of Nature</span> (IUCN), which maintains the <span>Red List of Threatened Species</span>.</p>
-                <p class="notes">Endangered species are a reflection of the world we’re shaping. Saving them means saving the intricate web of life we all depend on. Through awareness, education, and action, we can ensure that these majestic creatures are not lost to history but continue to thrive for generations to come.</p>
-            </div>
-            <div class="image4"><img src="/images/snow leopard (2).jpg" alt=""></div>
+        <div class="cards">
+          <div class="texts">
+            <h3 class="heading">Amphibians</h3>
+            <p class="p">
+              Amphibians are a diverse group of cold-blooded vertebrates that
+              spend part of their lives in water and part on land. They include
+              around 7,000 species, which can be found in a variety of habitats
+              around the world, from rainforests and deserts to freshwater and
+              marine environments.
+            </p>
+            <picture>
+              <source
+                srcset="
+                  ./images/frog-320w.webp 320w,
+                  ./images/frog-640w.webp 640w
+                "
+                sizes="100vw"
+                type="image/webp"
+              />
+              <img
+                src="./images/frog.jpg"
+                alt="Frog on lily pad"
+                class="image2"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          </div>
         </div>
-        <button class="btn4">Get Endangered</button>
-    
-    <div class="content4">
-        <div class="article">
-            <h1 id="arts">Articles & Resources</h1>
-            <div id="art">
-                <h3>Vanishing Spots: The Plight of the</h3> 
-                <h3>AMUR LEOPARD</h3>
-                <p> In the remote forests of the Russian Far East and northeastern China roams one of the planet's most elusive and endangered creatures: the Amur Leopard (Panthera pardus orientalis). With fewer than 60 individuals left in the wild, this subspecies of leopard teeters on the edge of extinction.<br></p>
-                <p> Designated by the "International Union for Conservation of Nature" (IUCN), the Amur Leopard's critical status is a stark indicator of how fragile Earth's biodiversity has become.</p>
-                <div class="image5"><img src="/images/snow leopard.jpg" alt=""></div>
-            </div>
-        </div>
+      </div>
+      <button class="btn3" aria-label="Learn more about animal species">
+        Learn More
+      </button>
     </div>
-</body>
+
+    <div class="content3" id="endangered">
+      <div class="leo">
+        <picture>
+          <source
+            srcset="
+              ./images/leopard-480w.webp   480w,
+              ./images/leopard-800w.webp   800w,
+              ./images/leopard-1200w.webp 1200w
+            "
+            sizes="(max-width: 900px) 100vw, 900px"
+            type="image/webp"
+          />
+          <img
+            src="./images/leopard.jpg"
+            alt="Leopard in wild"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+        <div class="inside">
+          <h1 id="header">Protect Our Most</h1>
+          <h1 id="header2">Endangered</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="danger">
+      <h1 class="dan">
+        Endangered Species: Guardians on the Brink of Extinction
+      </h1>
+    </div>
+
+    <div class="endanger">
+      <div class="note">
+        <p class="notes">
+          The Earth is home to an astonishing variety of life forms—from
+          towering elephants and elusive snow leopards to delicate orchids and
+          tiny frogs. However, a growing number of these species are now at risk
+          of disappearing forever. These are our endangered species, and their
+          plight is a clear warning about the fragile balance of life on Earth.
+        </p>
+        <p class="notes">
+          A species is considered endangered when its population has declined so
+          significantly that it is at high risk of extinction in the near
+          future. This status is classified by organizations like the
+          <span>International Union for Conservation of Nature</span> (IUCN),
+          which maintains the <span>Red List of Threatened Species</span>.
+        </p>
+        <p class="notes">
+          Endangered species are a reflection of the world we're shaping. Saving
+          them means saving the intricate web of life we all depend on. Through
+          awareness, education, and action, we can ensure that these majestic
+          creatures are not lost to history but continue to thrive for
+          generations to come.
+        </p>
+      </div>
+      <div class="image4">
+        <picture>
+          <source
+            srcset="
+              ./images/snow-leopard-320w.webp 320w,
+              ./images/snow-leopard-640w.webp 640w
+            "
+            sizes="(max-width: 600px) 100vw, 500px"
+            type="image/webp"
+          />
+          <img
+            src="./images/snow leopard (2).jpg"
+            alt="Snow leopard in mountains"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </div>
+    </div>
+    <button class="btn4" aria-label="Learn about endangered species">
+      Get Endangered
+    </button>
+
+    <div class="content4" id="articles">
+      <div class="article">
+        <h1 id="arts">Articles & Resources</h1>
+        <div id="art">
+          <h3>Vanishing Spots: The Plight of the</h3>
+          <h3>AMUR LEOPARD</h3>
+          <p>
+            In the remote forests of the Russian Far East and northeastern China
+            roams one of the planet's most elusive and endangered creatures: the
+            Amur Leopard (Panthera pardus orientalis). With fewer than 60
+            individuals left in the wild, this subspecies of leopard teeters on
+            the edge of extinction.
+          </p>
+          <p>
+            Designated by the "International Union for Conservation of Nature"
+            (IUCN), the Amur Leopard's critical status is a stark indicator of
+            how fragile Earth's biodiversity has become.
+          </p>
+          <div class="image5">
+            <picture>
+              <source
+                srcset="
+                  ./images/snow-leopard-320w.webp 320w,
+                  ./images/snow-leopard-640w.webp 640w
+                "
+                sizes="(max-width: 600px) 100vw, 600px"
+                type="image/webp"
+              />
+              <img
+                src="./images/snow leopard.jpg"
+                alt="Amur leopard in snow"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script defer>
+      (function () {
+        "use strict";
+
+        // Mobile menu toggle
+        function initMobileMenu() {
+          const menuToggle = document.querySelector(".menu-toggle");
+          const navList = document.querySelector(".nav-list");
+
+          if (!menuToggle || !navList) return;
+
+          menuToggle.addEventListener("click", () => {
+            const isActive = navList.classList.toggle("active");
+            const spans = menuToggle.querySelectorAll("span");
+            spans[0].style.transform = isActive
+              ? "rotate(45deg) translate(5px, 5px)"
+              : "none";
+            spans[1].style.opacity = isActive ? "0" : "1";
+            spans[2].style.transform = isActive
+              ? "rotate(-45deg) translate(7px, -6px)"
+              : "none";
+          });
+
+          navList.addEventListener("click", (e) => {
+            if (e.target.tagName === "A") {
+              navList.classList.remove("active");
+              const spans = menuToggle.querySelectorAll("span");
+              spans[0].style.transform = "none";
+              spans[1].style.opacity = "1";
+              spans[2].style.transform = "none";
+            }
+          });
+
+          document.addEventListener("click", (e) => {
+            if (!menuToggle.contains(e.target) && !navList.contains(e.target)) {
+              navList.classList.remove("active");
+              const spans = menuToggle.querySelectorAll("span");
+              spans[0].style.transform = "none";
+              spans[1].style.opacity = "1";
+              spans[2].style.transform = "none";
+            }
+          });
+        }
+
+        // Throttle function
+        function throttle(func, limit) {
+          let inThrottle;
+          return function () {
+            if (!inThrottle) {
+              func.apply(this, arguments);
+              inThrottle = true;
+              setTimeout(() => (inThrottle = false), limit);
+            }
+          };
+        }
+
+        // Debounce function
+        function debounce(func, wait) {
+          let timeout;
+          return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func(...args), wait);
+          };
+        }
+
+        // Image loading
+        function initImageLoading() {
+          const images = document.querySelectorAll('img[loading="lazy"]');
+          if ("loading" in HTMLImageElement.prototype) {
+            images.forEach((img) =>
+              img.addEventListener("load", () => img.classList.add("loaded"), {
+                once: true,
+              })
+            );
+          } else {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add("loaded");
+                    observer.unobserve(img);
+                  }
+                });
+              },
+              { rootMargin: "100px 0px", threshold: 0.01 }
+            );
+            images.forEach((img) => observer.observe(img));
+          }
+        }
+
+        // Smooth scrolling
+        function initSmoothScrolling() {
+          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", (e) => {
+              e.preventDefault();
+              const targetId = anchor.getAttribute("href");
+              const target = document.querySelector(targetId);
+              if (target) {
+                const offset =
+                  target.getBoundingClientRect().top + window.pageYOffset - 60;
+                window.scrollTo({ top: offset, behavior: "smooth" });
+              }
+            });
+          });
+        }
+
+        // Navbar scroll effect
+        function initNavbarScrollEffect() {
+          const navbar = document.querySelector(".container");
+          let lastScrollTop = 0;
+
+          const handleScroll = throttle(() => {
+            const scrollTop =
+              window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+              navbar.style.transform = "translateY(-100%)";
+            } else {
+              navbar.style.transform = "translateY(0)";
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+          }, 100);
+
+          window.addEventListener("scroll", handleScroll, { passive: true });
+        }
+
+        // Scroll animations
+        function initScrollAnimations() {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.style.opacity = "1";
+                  entry.target.style.transform = "translateY(0)";
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+          );
+
+          document
+            .querySelectorAll(".cards, .cont2, .note, .article")
+            .forEach((el) => {
+              el.style.opacity = "0";
+              el.style.transform = "translateY(20px)";
+              el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+              observer.observe(el);
+            });
+        }
+
+        // Initialize
+        function init() {
+          initMobileMenu();
+          initImageLoading();
+          initSmoothScrolling();
+          initNavbarScrollEffect();
+          initScrollAnimations();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+
+        window.addEventListener(
+          "resize",
+          debounce(() => {
+            if (window.innerWidth > 768) {
+              const navList = document.querySelector(".nav-list");
+              const menuToggle = document.querySelector(".menu-toggle");
+              if (navList && menuToggle) {
+                navList.classList.remove("active");
+                const spans = menuToggle.querySelectorAll("span");
+                spans[0].style.transform = "none";
+                spans[1].style.opacity = "1";
+                spans[2].style.transform = "none";
+              }
+            }
+          }, 250),
+          { passive: true }
+        );
+      })();
+    </script>
+  </body>
 </html>
