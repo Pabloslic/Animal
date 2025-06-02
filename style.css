@@ -8,6 +8,9 @@ body {
     background-color: #12263a;
     color: #c5d8d1;
     font-family: Poppins, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Navigation */
@@ -17,18 +20,18 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px max(15px, 3vw);
     background-color: #c5d8d1;
     color: #12263a;
-    height: 50px;
+    min-height: 60px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-    font-size: 24px;
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
     font-weight: 700;
     font-family: Berkshire Swash, cursive;
     color: #12263a;
@@ -39,7 +42,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    gap: 20px;
+    gap: clamp(0.5rem, 3vw, 1.5rem);
     color: #12263a;
 }
 
@@ -50,7 +53,7 @@ body {
     text-decoration: none;
     color: #12263a;
     font-weight: 500;
-    gap: 20px;
+    gap: clamp(0.5rem, 3vw, 1.5rem);
 }
 
 .nav-list a {
