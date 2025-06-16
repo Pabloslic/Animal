@@ -557,3 +557,158 @@ footer {
         opacity: 1;
       }
 
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px max(13px, 2vw);
+    min-height: 50px;
+  }
+
+  .logo {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    margin-bottom: 10px;
+    order: 1;
+  }
+
+  .navbar {
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+    order: 3;
+  }
+
+  .menu-toggle {
+    display: flex;
+    order: 2;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    width: 100%;
+    padding: 10px 0;
+    gap: 0.5rem;
+  }
+
+  .nav-list a {
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .nav-list a {
+    font-size: 1.2rem;
+    padding: 10px 0;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    padding: clamp(10px, 2vw, 15px) clamp(20px, 5vw, 30px);
+    text-align: center;
+    font-size: clamp(0.4rem, 2vw, 0.6rem);
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(40px, 10vh, 60px) max(15px, 3vw);
+    text-align: center;
+    gap: clamp(20px, 5vw, 30px);
+  }
+
+  #heading {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    text-align: center;
+  }
+
+  #p {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    padding: clamp(0.5rem, 2vw, 0.8rem) max(15px, 3vw);
+    text-align: center;
+  }
+
+  #p2 {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    padding: clamp(0.5rem, 2vw, 1rem) max(15px, 3vw);
+    text-align: center;
+  }
+
+  .btn2 {
+    width: 100%;
+    max-width: 300px;
+    margin: clamp(20px, 5vw, 30px) auto;
+    padding: clamp(10px, 2vw, 15px) clamp(20px, 5vw, 25px);
+    text-align: center;
+  }
+
+  #image {
+    width: 100%;
+    max-width: 80%;
+    height: clamp(300px, 35vh, 400px);
+    margin-top: 20px;
+  }
+
+  .content2 {
+    padding: clamp(20px, 5vw, 40px) max(15px, 3vw);
+    height: auto;
+    gap: 20px;
+  }
+
+  .cont2 {
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+  }
+
+  #heading2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    text-align: center;
+    padding: clamp(0.5rem, 2vw, 1rem) max(15px, 3vw);
+  }
+
+  #p3 {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    padding: clamp(0.5rem, 2vw, 0.8rem) max(15px, 3vw);
+    text-align: center;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .cards {
+    height: auto;
+    padding: clamp(20px, 5vw, 30px);
+    margin: 0 auto;
+    max-width: 90%;
+  }
+
+  .image2 {
+    width: 100%;
+    height: clamp(300px, 35vh, 400px);
+    margin: clamp(30px, 5vw, 40px) auto;
+  }
+
+  .btn3 {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: clamp(10px, 2vw, 15px) clamp(20px, 5vw, 30px);
+    text-align: center;
+  }
+}
