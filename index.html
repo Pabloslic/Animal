@@ -7,7 +7,7 @@
       name="description"
       content="Explore the animal kingdom with our comprehensive encyclopedia. Learn about diverse species, endangered animals, and conservation efforts."
     />
-    <link rel="stylesheet" href="./style.css" />
+    <!--<link rel="stylesheet" href="./style.css" />-->
     <meta name="keywords" content="animals, encyclopedia, endangered species, wildlife" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,7 +18,7 @@
     <link rel="preload" href="./images/fox.jpg" as="image" />
     <link rel="preload" href="./images/leopard.jpg" as="image" />
     <title>Animal Encyclopedia</title>
-    <!--<style>
+    <style>
       :root {
         --primary-bg: #12263a;
         --secondary-bg: #c5d8d1;
@@ -588,28 +588,22 @@
           border-color: var(--accent-color);
         }
       }
-    </style>-->
+    </style>
   </head>
   <body>
     <div class="section">
       <div class="container">
         <div class="logo">Animal</div>
-        <button class="menu-toggle" aria-label="Toggle navigation menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
         <nav class="navbar">
           <ul class="nav-list">
             <li><a href="#home">Home</a></li>
             <li><a href="#species">Species</a></li>
             <li><a href="#endangered">Endangered</a></li>
             <li><a href="#articles">Articles</a></li>
-            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#signup">Join Our Team</a></li>
+            <li></li>
           </ul>
-          <button class="btn" aria-label="Sign up for newsletter">
-            Sign Up
-          </button>
+          
         </nav>
       </div>
     </div>
@@ -865,191 +859,5 @@
       </div>
     </footer>
 
-    <script defer>
-      (function () {
-        "use strict";
-
-        // Mobile menu toggle
-        function initMobileMenu() {
-          const menuToggle = document.querySelector(".menu-toggle");
-          const navList = document.querySelector(".nav-list");
-
-          if (!menuToggle || !navList) return;
-
-          menuToggle.addEventListener("click", () => {
-            const isActive = navList.classList.toggle("active");
-            const spans = menuToggle.querySelectorAll("span");
-            spans[0].style.transform = isActive
-              ? "rotate(45deg) translate(5px, 5px)"
-              : "none";
-            spans[1].style.opacity = isActive ? "0" : "1";
-            spans[2].style.transform = isActive
-              ? "rotate(-45deg) translate(7px, -6px)"
-              : "none";
-          });
-
-          navList.addEventListener("click", (e) => {
-            if (e.target.tagName === "A") {
-              navList.classList.remove("active");
-              const spans = menuToggle.querySelectorAll("span");
-              spans[0].style.transform = "none";
-              spans[1].style.opacity = "1";
-              spans[2].style.transform = "none";
-            }
-          });
-
-          document.addEventListener("click", (e) => {
-            if (!menuToggle.contains(e.target) && !navList.contains(e.target)) {
-              navList.classList.remove("active");
-              const spans = menuToggle.querySelectorAll("span");
-              spans[0].style.transform = "none";
-              spans[1].style.opacity = "1";
-              spans[2].style.transform = "none";
-            }
-          });
-        }
-
-        // Throttle function
-        function throttle(func, limit) {
-          let inThrottle;
-          return function () {
-            if (!inThrottle) {
-              func.apply(this, arguments);
-              inThrottle = true;
-              setTimeout(() => (inThrottle = false), limit);
-            }
-          };
-        }
-
-        // Debounce function
-        function debounce(func, wait) {
-          let timeout;
-          return function (...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func(...args), wait);
-          };
-        }
-
-        // Image loading
-        function initImageLoading() {
-          const images = document.querySelectorAll('img[loading="lazy"]');
-          if ("loading" in HTMLImageElement.prototype) {
-            images.forEach((img) =>
-              img.addEventListener("load", () => img.classList.add("loaded"), {
-                once: true,
-              })
-            );
-          } else {
-            const observer = new IntersectionObserver(
-              (entries) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    img.classList.add("loaded");
-                    observer.unobserve(img);
-                  }
-                });
-              },
-              { rootMargin: "100px 0px", threshold: 0.01 }
-            );
-            images.forEach((img) => observer.observe(img));
-          }
-        }
-
-        // Smooth scrolling
-        function initSmoothScrolling() {
-          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-            anchor.addEventListener("click", (e) => {
-              e.preventDefault();
-              const targetId = anchor.getAttribute("href");
-              const target = document.querySelector(targetId);
-              if (target) {
-                const offset =
-                  target.getBoundingClientRect().top + window.pageYOffset - 60;
-                window.scrollTo({ top: offset, behavior: "smooth" });
-              }
-            });
-          });
-        }
-
-        // Navbar scroll effect
-        function initNavbarScrollEffect() {
-          const navbar = document.querySelector(".container");
-          let lastScrollTop = 0;
-
-          const handleScroll = throttle(() => {
-            const scrollTop =
-              window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-              navbar.style.transform = "translateY(-100%)";
-            } else {
-              navbar.style.transform = "translateY(0)";
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-          }, 100);
-
-          window.addEventListener("scroll", handleScroll, { passive: true });
-        }
-
-        // Scroll animations
-        function initScrollAnimations() {
-          const observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  entry.target.style.opacity = "1";
-                  entry.target.style.transform = "translateY(0)";
-                  observer.unobserve(entry.target);
-                }
-              });
-            },
-            { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-          );
-
-          document
-            .querySelectorAll(".cards, .cont2, .note, .article")
-            .forEach((el) => {
-              el.style.opacity = "0";
-              el.style.transform = "translateY(20px)";
-              el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-              observer.observe(el);
-            });
-        }
-
-        // Initialize
-        function init() {
-          initMobileMenu();
-          initImageLoading();
-          initSmoothScrolling();
-          initNavbarScrollEffect();
-          initScrollAnimations();
-        }
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", init);
-        } else {
-          init();
-        }
-
-        window.addEventListener(
-          "resize",
-          debounce(() => {
-            if (window.innerWidth > 768) {
-              const navList = document.querySelector(".nav-list");
-              const menuToggle = document.querySelector(".menu-toggle");
-              if (navList && menuToggle) {
-                navList.classList.remove("active");
-                const spans = menuToggle.querySelectorAll("span");
-                spans[0].style.transform = "none";
-                spans[1].style.opacity = "1";
-                spans[2].style.transform = "none";
-              }
-            }
-          }, 250),
-          { passive: true }
-        );
-      })();
-    </script>
   </body>
 </html>
